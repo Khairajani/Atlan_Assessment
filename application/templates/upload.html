@@ -1,0 +1,103 @@
+<html> 
+<head>
+<title>Atlan Assessment</title>
+<style>
+
+   .header{
+      width:100%;
+      background-color:blue;
+      font-size:40px;
+      color:white;
+      font-weight:bolder;
+      text-align:center
+   }
+   h1,h2{
+      text-align:center;
+   }
+
+   h3,h4{
+      text-align:center;
+      font-size: large;
+      font-weight:lighter;
+   }
+
+   .data{
+      font-weight:bolder;
+      font-size:20px;
+      margin-bottom:20px;
+      border:2px solid black;
+      padding:3px;
+   }
+
+   .middle{
+      width:100%;
+   }
+
+   .button{
+      width:90px;
+      height:40px;
+      font-size:20px;
+      color:white;
+      font-weight:bolder;
+      background-color:blue
+   }
+
+   h5{
+      text-align:center;
+      color: red;
+   }
+
+   form{
+      text-align:center;
+   }
+   .onwebcam{
+      text-align:center;
+   }
+   .oncam{
+      width:150px;
+      height:50px;
+      font-size:20px;
+      color:white;
+      font-weight:bolder;
+      background-color:blue;
+      margin-bottom:5px;
+   }
+   img{
+      width:300px;
+      height:250px;
+      margin-bottom:20px;
+   }
+</style>
+</head>
+
+<body>
+
+   <div class="header">
+      Teminate Function
+   </div>
+
+   <!-- <h1> SPEECH </h1> -->
+   <h3>Upload any large file<h3>
+
+
+<!-- <form action = "http://15.206.70.171:5000/uploader" method = "post"  -->
+   <form method = "post" action="/" enctype = "multipart/form-data">
+
+      <div class="middle">
+         <input  class="data" type = "file" name = "file" multiple/><br>
+         <!-- <input  class="data" type = "file" name = "file" accept='.docx,.doc'/><br> -->
+         <input class="button" type = "submit" value="Submit" />
+      </div>
+   </form>
+
+   <form method = "get" action="/stop" enctype = "multipart/form-data">
+
+      <div class="middle">
+         <!-- <input  class="data" type = "file" name = "file" multiple/><br> -->
+         <!-- <input  class="data" type = "file" name = "file" accept='.docx,.doc'/><br> -->
+         <input class="button" type = "submit" value="Stop" />
+      </div>
+   </form>
+
+</body>
+</html>
