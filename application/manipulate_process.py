@@ -1,25 +1,32 @@
+# Imports
+import setproctitle
+import os
+import signal 
 
-import os, signal 
+def start_process(ps_name):
+    setproctitle.setproctitle(ps_name)
+    i = 100000
+    j = 0
+    while j<=i:
+        print(j)
+        j+=1
    
 def stop_process(name): 
     try: 
-          
         # iterating through each instance of the proess 
         for line in os.popen("ps ax | grep " + name + " | grep -v grep"):  
             fields = line.split() 
-              
-            # extracting Process ID from the output 
+
             pid = fields[0]  
               
             # terminating process  
             os.kill(int(pid), signal.SIGKILL)  
-        print("Process Successfully terminated") 
+        return "Process Successfully terminated"
           
     except Exception as e: 
-        print(e)
-        print("Error Encountered while running script") 
-   
+        return e
+        # print("Error Encountered while running script") 
+
 if __name__ == "__main__":
-    # Ask user for the name of process 
-    name = input("Enter process Name: ") 
-    stop_process(name) 
+    start_process("111")
+    stop_process("111")
