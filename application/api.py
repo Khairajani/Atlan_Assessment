@@ -1,58 +1,83 @@
 from flask import Flask, request, render_template
 import os
 import json
-#import re
-#import send_mail
+import start_process
+import stop_process
+
 
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-flag = 0
 
 @app.route("/", methods=['GET', 'POST'])
-
 def upload_file():
-    global flag
+
     if request.method == 'GET':
         return render_template("upload.html")
 
     if request.method == "POST":
         f = request.files['file']
         f_name = f.filename
-        if f_name!='':
-            flag = 1
-            f_path = './upload/'+f_name
-            f.save(f_path)
-            print('file uploaded successfully')
+
+        pid = os.fork()
+        if pid > 0: 
+
+            print("\nIn parent process",os.getpid()) 
+            # Wait for the completion of child process and get its pid and exit status indication using os.wait() method 
+            info = os.waitpid(pid, 0) 
+ 
+            if os.WIFEXITED(info[1]) : 
+                code = os.WEXITSTATUS(info[1]) 
+                print("Child's exit code:", code) 
+                status= 200
+                response_type = 'application/json'
+                result= {"Status":"Success", "Response": "Task Completed","Child's exit code":code}
+                response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
+                return response
+
+        else : 
+            print("In child process:", os.getpid()) 
             
-            status= 200
-            response_type = 'application/json'
-            result= {"Status":"Success", "Response":f_name+" is successfully stored"}
-            response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
-            flag = 0
-            return response
+            start_process.start_process("PROC_1")
+            
+            print("Child exiting..") 
         
-        else:
-            status= 400
-            response_type = 'application/json'
-            result= {"Status":"Failed", "Response":"No file found!. Please upload any file."}
-            response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
-            return response
+            os._exit(os.EX_OK) 
+        
+        # if f_name!='':
+        #     f_path = './upload/'+f_name
+        #     f.save(f_path)
+        #     print('file uploaded successfully')
+            
+        #     start_process.start_process()
+        #     status= 200
+        #     response_type = 'application/json'
+        #     result= {"Status":"Success", "Response":f_name+" is successfully stored"}
+        #     response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
+        #     return response
+    
+        # else:
+        #     status= 400
+        #     response_type = 'application/json'
+        #     result= {"Status":"Failed", "Response":"No file found!. Please upload any file."}
+        #     response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
+        #     return response
+
 
 @app.route("/stop", methods=['GET', 'POST'])
-def stop_process():
-    global flag
+def stop():
+
     if request.method == "GET":
-        if flag==1:
+        try:
+            stop_process.stop_process("PROC_1")
             status= 200
             response_type = 'application/json'
             result= {"Status":"Success", "Response":"Processing stopped"}
             response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
-            flag = 0
             return response
-        else:
-            status= 200
+
+        except Exception as e:
+            status= 400
             response_type = 'application/json'
-            result= {"Status":"Failed", "Response":"No process to stop"}
+            result= {"Status":"Failed", "Response":str(e)}
             response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
             return response
 
