@@ -80,6 +80,46 @@ def stop():
             response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
             return response
 
+@app.route("/pause", methods=['GET', 'POST'])
+def paused():
+
+    if request.method == "GET":
+        try:
+            verdict = mp.pause_process("PROC_1")
+            return render_template("upload.html")
+            # status= 200
+            # response_type = 'application/json'
+            # result= {"Status":"Success", "Response": verdict}
+            # response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
+            # return response
+
+        except Exception as e:
+            status= 400
+            response_type = 'application/json'
+            result= {"Status":"Failed", "Response":str(e)}
+            response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
+            return response
+
+@app.route("/resume", methods=['GET', 'POST'])
+def resume():
+
+    if request.method == "GET":
+        try:
+            verdict = mp.resume_process("PROC_1")
+            return render_template("upload.html")
+            # status= 200
+            # response_type = 'application/json'
+            # result= {"Status":"Success", "Response": verdict}
+            # response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
+            # return response
+
+        except Exception as e:
+            status= 400
+            response_type = 'application/json'
+            result= {"Status":"Failed", "Response":str(e)}
+            response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
+            return response
+
 if __name__ == "__main__":
     app.run(debug=True)
     #app.run(host='0.0.0.0', port=6850, debug=True)

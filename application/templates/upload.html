@@ -73,31 +73,41 @@
 <body>
 
    <div class="header">
-      Teminate Function
+      Teminate Functions
    </div>
 
-   <!-- <h1> SPEECH </h1> -->
+   <!-- <h1> FILE </h1> -->
    <h3>Upload any large file<h3>
 
 
 <!-- <form action = "http://15.206.70.171:5000/uploader" method = "post"  -->
    <form method = "post" action="/" enctype = "multipart/form-data" autocomplete="off">
-
       <div class="middle">
          <input  class="data" type = "file" name = "file" multiple/><br>
-         <!-- <input  class="data" type = "file" name = "file" accept='.docx,.doc'/><br> -->
          <input class="button" type = "submit" value="Submit" />
       </div>
    </form>
 
-   <form method = "get" action="/stop" enctype = "multipart/form-data">
-
-      <div class="middle">
-         <!-- <input  class="data" type = "file" name = "file" multiple/><br> -->
-         <!-- <input  class="data" type = "file" name = "file" accept='.docx,.doc'/><br> -->
-         <input class="button" type = "submit" value="Stop" />
+   <div class="center">
+      <div style="float:left; margin-left: 35%">
+      <form method = "get" action="/pause" enctype = "multipart/form-data">
+            <input class="button" type = "submit" value="Pause" />
+      </form>
       </div>
-   </form>
+      
+      <div style="float:left; margin-left: 5%">
+         <form method = "get" action="/stop" enctype = "multipart/form-data">
+            <input class="button" type = "submit" value="Stop" />
+         </form>
+      </div>
+
+      <div style="float:right; margin-right: 35%">
+      <form method = "get" action="/resume" enctype = "multipart/form-data">
+            <input class="button" type = "submit" value="Resume" />
+      </form>
+      </div>
+   </div>
+   
 
 </body>
 </html>
