@@ -2,7 +2,6 @@
 import setproctitle
 import os
 import signal
-import sys
 from . import play 
 
 def start_process(ps_name):
@@ -52,7 +51,7 @@ def stop_process(ps_name):
               
             # terminating process  
             os.kill(int(pid), signal.SIGKILL)  
-        return "Process Successfully terminated"
+        return "Process Successfully Terminated"
           
     except Exception as e: 
         return e

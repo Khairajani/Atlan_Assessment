@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 import os
 import json
 from modules.manipulate_process import *
-from modules.play import *
 
 app = Flask(__name__)
 
@@ -13,9 +12,6 @@ def upload_file():
         return render_template("upload.html")
 
     if request.method == "POST":
-        f = request.files['file']
-        f_name = f.filename
-
         pid = os.fork()
         if pid > 0: 
 
@@ -41,6 +37,8 @@ def upload_file():
         
             os._exit(os.EX_OK) 
         
+        # f = request.files['file']
+        # f_name = f.filename
         # if f_name!='':
         #     f_path = './upload/'+f_name
         #     f.save(f_path)
