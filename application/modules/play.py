@@ -5,7 +5,7 @@ from datetime import date
 from time import time 
 
 def playIt():
-    df = pd.read_csv('./data.csv')
+    df = pd.read_csv('./modules/data.csv')
 
     now = pd.to_datetime('now')
 

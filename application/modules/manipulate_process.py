@@ -1,9 +1,9 @@
 # Imports
 import setproctitle
 import os
-import signal 
-import sys 
-import play
+import signal
+import sys
+from . import play 
 
 def start_process(ps_name):
     setproctitle.setproctitle(ps_name)

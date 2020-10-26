@@ -1,7 +1,8 @@
 from flask import Flask, request, render_template
 import os
 import json
-from modules import *
+from modules.manipulate_process import *
+from modules.play import *
 
 app = Flask(__name__)
 
@@ -34,7 +35,7 @@ def upload_file():
         else : 
             print("In child process:", os.getpid()) 
             
-            manipulate_process.start_process("PROC_1")
+            start_process("PROC_1")
             
             print("Child exiting..") 
         
@@ -65,7 +66,7 @@ def stop():
 
     if request.method == "GET":
         try:
-            verdict = manipulate_process.stop_process("PROC_1")
+            verdict =  stop_process("PROC_1")
             status= 200
             response_type = 'application/json'
             result= {"Status":"Success", "Response": verdict}
@@ -84,7 +85,7 @@ def paused():
 
     if request.method == "GET":
         try:
-            verdict = manipulate_process.pause_process("PROC_1")
+            verdict =  pause_process("PROC_1")
             return render_template("upload.html")
             # status= 200
             # response_type = 'application/json'
@@ -104,7 +105,7 @@ def resume():
 
     if request.method == "GET":
         try:
-            verdict = manipulate_process.resume_process("PROC_1")
+            verdict =  resume_process("PROC_1")
             return render_template("upload.html")
             # status= 200
             # response_type = 'application/json'
