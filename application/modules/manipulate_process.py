@@ -2,12 +2,12 @@
 import setproctitle
 import os
 import signal
-from . import play 
+from . import fetch
 
 def start_process(ps_name):
     setproctitle.setproctitle(ps_name)
 
-    play.playIt()
+    fetch.playIt()
     
 def pause_process(ps_name): 
     try: 
