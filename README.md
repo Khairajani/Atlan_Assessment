@@ -9,13 +9,13 @@ The Below file description is for files contained in `application` folder.
 - Dockerfile is used by docker-compose file respectively.
 - Note: Here, when <strong>Start</strong> request is given via web-dashboard after starting the server, the `fetch.py` file uses `./application/modules/data.csv`
 
-<!-- #### Requirements
-Install the requirements before moving forward using  ```pip install -r requirements.txt``` -->
+#### Requirements and Assumption
+- <strong>Docker</strong> should be pre-installed in the environment/system where this code is to run.
 
 ### Run
 - Goto the root folder.
-- Simply run the ```docker-compose build``` to build the container for running.
-- Run ```docker-compose up``` to start the server.
+- Simply run the ```sudo docker-compose build``` to build the container for running.
+- Run ```sudo docker-compose up``` to start the server.
 - To Open the dashboard (HTML rendering), goto the localhost IP address, which can be found in terminal as well.
 - Click the START button, for starting the process (printing in terminal will start as soon as start button is clicked)
 - Follow up with STOP, RESUME and PAUSE button.

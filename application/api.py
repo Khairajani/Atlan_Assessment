@@ -1,9 +1,15 @@
 from flask import Flask, request, render_template
 import os
 import json
+import logging
 from modules.manipulate_process import *
 
 app = Flask(__name__)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
 @app.route("/", methods=['GET', 'POST'])
 def upload_file():
@@ -119,5 +125,5 @@ def resume():
             return response
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    #app.run(host='0.0.0.0', port=6850, debug=True)
+    #app.run(debug=True,port=7001)
+    app.run(host='0.0.0.0', port=7001, debug=True)

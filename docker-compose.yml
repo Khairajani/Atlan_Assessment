@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  
+  atlan-service:
+    build: ./application
+    command: gunicorn -w 1 -b 0.0.0.0:7001 api:app
+
+    volumes:
+      - ./application:/usr/src/app
+    ports:
+      - 7001:7001
+  
