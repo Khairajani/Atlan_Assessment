@@ -9,7 +9,7 @@ The Below file description is for files contained in `application` folder.
 - Dockerfile is used by docker-compose respectively.
 - Note: When <strong>Start</strong> request is given via web-dashboard to the server, the `fetch.py` script uses `data.csv`(a fake .csv data) (location: `./application/modules/`)
 
-#### Requirements and Assumption
+#### Requirements and Setup
 - Have Python3 installed in your system.
 - Make a new environment inside root folder (recommended) (use `python3 -m venv atlanVenv`).
 - Activate the Environment (use `source ./atlanVenv/bin/activate`) and move to ```./application/``` folder
@@ -35,7 +35,7 @@ The Below file description is for files contained in `application` folder.
 - Click the START button, for starting the process (printing in terminal will start as soon as start button is clicked)
 - <strong>NOTE:</strong>
    - There is a problem in docker running task. Somehow I wasn't able to manipulate the process using docker (stopping/pausing/resuming). So stop the terminal process using `ctrl+c`.
-   - But via FLASK (above section), this system works like a charm :).
+   - But via FLASK (above section), system works like a charm :).
 
 
 Regards: Himanshu Khairajani
