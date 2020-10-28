@@ -6,22 +6,23 @@ Atlan Collect has a variety of long-running tasks that require time and resource
 The Below file description is for files contained in `application` folder.
 - There is 1 python file `api.py` which is the main server(flask) file.
 - There are 2 Folders: `templates` which contain 1 HTML file  for rendering the web-view(dashboard) and `modules` which contain files for process manipulation and data-fetching (processing).
-- Dockerfile is used by docker-compose file respectively.
-- Note: Here, when <strong>Start</strong> request is given via web-dashboard after starting the server, the `fetch.py` file uses `./application/modules/data.csv`
+- Dockerfile is used by docker-compose respectively.
+- Note: When <strong>Start</strong> request is given via web-dashboard to the server, the `fetch.py` script uses `data.csv`(a fake .csv data) (location: `./application/modules/`)
 
 #### Requirements and Assumption
 - Have Python3 installed in your system.
 - Make a new environment inside root folder (recommended) (use `python3 -m venv atlanVenv`).
 - Activate the Environment (use `source ./atlanVenv/bin/activate`) and move to ```./application/``` folder
-- use ```pip install -r requirements.txt``` to install the dependencies and packages.
+- Use ```pip install -r requirements.txt``` to install the dependencies and packages.
 - <strong>Docker</strong> should be installed in the environment/system where this code is to run.
 
 ### Run (FLASK)
+- Activate the Environment (use `source ./atlanVenv/bin/activate`)
 - Goto the `./application` folder.
 - Simply run the ```python api.py``` to start the server.
 - To Open the dashboard (HTML rendering), goto the localhost IP address, which can be found in terminal as well.
 - Click the START button, for starting the process (printing in terminal will start as soon as start button is clicked)
-- Follow up with STOP, RESUME and PAUSE button.
+- Follow up with PAUSE, RESUME and STOP buttons to see the pausing, resuming and stopping of the process respectively.
 
 ### ouput/result
 - Note: As of now the working of buttons and processing (data fetching) can be seen in terminal only. Except when the process is finished and stopped a simple json output is shown in the web-view.
