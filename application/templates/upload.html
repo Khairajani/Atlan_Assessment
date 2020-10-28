@@ -131,7 +131,8 @@
       //add events to those 4 buttons
       startButton.addEventListener("click", startProcessing);
       resumeButton.addEventListener("click", startProcessing);
-      pauseButton.addEventListener("click", pauseProcessing);       
+      pauseButton.addEventListener("click", pauseProcessing);
+      stopButton.addEventListener("click", stopProcessing);       
       
 
       function startProcessing() {
@@ -164,6 +165,29 @@
          resumeButton.classList.remove('button_off');
          resumeButton.classList.add('button');
          resumeButton.disabled = false;
+
+         pauseButton.classList.remove('button');
+         pauseButton.classList.add('button_off');
+         pauseButton.disabled = true;
+         //reset button just in case the recording is stopped while paused
+         // pauseButton.innerHTML="Pause";
+      }
+
+      function stopProcessing() {
+         console.log("stopButton clicked");
+
+         //disable the Start and Resume button, enable the Pause and Stop Button
+         startButton.classList.remove('button_off');
+         startButton.classList.add('button');
+         startButton.disabled = false;
+         
+         resumeButton.classList.remove('button');
+         resumeButton.classList.add('button_off');
+         resumeButton.disabled= true;
+
+         stopButton.classList.remove('button');
+         stopButton.classList.add('button_off');
+         stopButton.disabled = true;
 
          pauseButton.classList.remove('button');
          pauseButton.classList.add('button_off');
