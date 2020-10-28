@@ -90,12 +90,13 @@ def paused():
     if request.method == "GET":
         try:
             verdict =  pause_process("PROC_1")
-            return render_template("upload.html")
+            # return render_template("upload.html")
             # status= 200
             # response_type = 'application/json'
             # result= {"Status":"Success", "Response": verdict}
             # response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
             # return response
+            return ('', 204)            
 
         except Exception as e:
             status= 400
@@ -110,12 +111,13 @@ def resume():
     if request.method == "GET":
         try:
             verdict =  resume_process("PROC_1")
-            return render_template("upload.html")
+            # return render_template("upload.html")
             # status= 200
             # response_type = 'application/json'
             # result= {"Status":"Success", "Response": verdict}
             # response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
             # return response
+            return ('', 204)
 
         except Exception as e:
             status= 400
@@ -126,4 +128,4 @@ def resume():
 
 if __name__ == "__main__":
     #app.run(debug=True,port=7001)
-    app.run(host='0.0.0.0', port=7001, debug=True)
+    app.run(port=7001, debug=True)

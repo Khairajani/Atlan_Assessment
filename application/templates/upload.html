@@ -41,6 +41,14 @@
       font-weight:bolder;
       background-color:blue
    }
+   .button_off{
+      width:90px;
+      height:40px;
+      font-size:20px;
+      color:white;
+      font-weight:bolder;
+      background-color:gray
+   }
 
    h5{
       text-align:center;
@@ -84,30 +92,86 @@
    <form method = "post" action="/" enctype = "multipart/form-data" autocomplete="off">
       <div class="middle">
          <!-- <input  class="data" type = "file" name = "file" multiple/><br> -->
-         <input class="button" type = "submit" value="Start" />
+         <input class="button" type = "submit" value="Start" id="startButton"/>
       </div>
    </form>
 
    <div class="center">
       <div style="float:left; margin-left: 35%">
       <form method = "get" action="/pause" enctype = "multipart/form-data">
-            <input class="button" type = "submit" value="Pause" />
+            <input class="button_off" type = "submit" value="Pause" id="pauseButton"/>
       </form>
       </div>
-      
+      <!-- onsubmit="pauseButton.disabled = true;" -->
       <div style="float:left; margin-left: 5%">
          <form method = "get" action="/stop" enctype = "multipart/form-data">
-            <input class="button" type = "submit" value="Stop" />
+            <input class="button_off" type = "submit" value="Stop" id="stopButton"/>
          </form>
       </div>
 
       <div style="float:right; margin-right: 35%">
       <form method = "get" action="/resume" enctype = "multipart/form-data">
-            <input class="button" type = "submit" value="Resume" />
+            <input class="button_off" type = "submit" value="Resume" id="resumeButton"/>
       </form>
       </div>
    </div>
-   
+
+   <script>
+      console.log("THIS IS A TEST");
+      var startButton = document.getElementById("startButton");
+      var pauseButton = document.getElementById("pauseButton");
+      var stopButton = document.getElementById("stopButton");
+      var resumeButton = document.getElementById("resumeButton");
+
+      pauseButton.disabled = true;
+      stopButton.disabled = true;
+      resumeButton.disabled = true;
+      startButton.disabled = false;
+         
+      //add events to those 4 buttons
+      startButton.addEventListener("click", startProcessing);
+      resumeButton.addEventListener("click", startProcessing);
+      pauseButton.addEventListener("click", pauseProcessing);       
+      
+
+      function startProcessing() {
+         console.log("startButton/resumeButton clicked");
+
+         //disable the Start and Resume button, enable the Pause and Stop Button
+         startButton.classList.remove('button');
+         startButton.classList.add('button_off');
+         startButton.disabled = true;
+         
+         resumeButton.classList.remove('button');
+         resumeButton.classList.add('button_off');
+         resumeButton.disabled= true;
+
+         stopButton.classList.remove('button_off');
+         stopButton.classList.add('button');
+         stopButton.disabled = false;
+
+         pauseButton.classList.remove('button_off');
+         pauseButton.classList.add('button');
+         pauseButton.disabled = false;
+         //reset button just in case the recording is stopped while paused
+         // pauseButton.innerHTML="Pause";
+      }
+
+      function pauseProcessing() {
+         console.log("pauseButton clicked");
+
+         //disable the Start and Resume button, enable the Pause and Stop Button
+         resumeButton.classList.remove('button_off');
+         resumeButton.classList.add('button');
+         resumeButton.disabled = false;
+
+         pauseButton.classList.remove('button');
+         pauseButton.classList.add('button_off');
+         pauseButton.disabled = true;
+         //reset button just in case the recording is stopped while paused
+         // pauseButton.innerHTML="Pause";
+      }
+   </script>
 
 </body>
 </html>
