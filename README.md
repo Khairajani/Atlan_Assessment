@@ -20,7 +20,7 @@ The Below file description is for files contained in `application` folder.
 - Activate the Environment (use `source ./atlanVenv/bin/activate`)
 - Goto the `./application` folder.
 - Simply run the ```python api.py``` to start the server.
-- To Open the dashboard (HTML rendering), goto the localhost IP address, which can be found in terminal as well.
+- To Open the dashboard (HTML rendering), goto the localhost IP address (`http://127.0.0.1:7001/`), which can be found in terminal as well.
 - Click the START button, for starting the process (printing in terminal will start as soon as start button is clicked)
 - Follow up with PAUSE, RESUME and STOP buttons to see the pausing, resuming and stopping of the process respectively.
 
