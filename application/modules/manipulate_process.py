@@ -7,7 +7,7 @@ from . import fetch
 def start_process(ps_name):
     setproctitle.setproctitle(ps_name)
 
-    fetch.playIt()
+    return fetch.playIt()
     
 def pause_process(ps_name): 
     try: 

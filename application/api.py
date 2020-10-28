@@ -18,53 +18,61 @@ def upload_file():
         return render_template("upload.html")
 
     if request.method == "POST":
-        pid = os.fork()
-        if pid > 0: 
-
-            print("\nIn parent process",os.getpid()) 
-            # Wait for the completion of child process and get its pid and exit status indication using os.wait() method 
-            info = os.waitpid(pid, 0) 
- 
-            if os.WIFEXITED(info[1]) : 
-                code = os.WEXITSTATUS(info[1]) 
-                print("Child's exit code:", code) 
-                status= 200
-                response_type = 'application/json'
-                result= {"Status":"Success", "Response": "Task Completed","Child's exit code":code}
-                response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
-                return response
-
-        else : 
-            print("In child process:", os.getpid()) 
-            
-            start_process("PROC_1")
-            
-            print("Child exiting..") 
-        
-            os._exit(os.EX_OK) 
-        
         # f = request.files['file']
         # f_name = f.filename
         # if f_name!='':
         #     f_path = './upload/'+f_name
         #     f.save(f_path)
         #     print('file uploaded successfully')
+
+        r, w = os.pipe() 
+        pid = os.fork()
+        
+        if pid: 
+
+            print("\nIn parent process",os.getpid()) 
+            # Wait for the completion of child process and get its pid and exit status indication using os.wait() method 
+            info = os.waitpid(pid, 0) 
             
-        #     start_process.start_process()
-        #     status= 200
-        #     response_type = 'application/json'
-        #     result= {"Status":"Success", "Response":f_name+" is successfully stored"}
-        #     response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
-        #     return response
-    
-        # else:
-        #     status= 400
-        #     response_type = 'application/json'
-        #     result= {"Status":"Failed", "Response":"No file found!. Please upload any file."}
-        #     response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)
-        #     return response
+            if os.WIFEXITED(info[1]) :
+                os.close(w) 
+                r = os.fdopen(r) 
+                f_result = r.read() 
+                
+                if f_result:
+                    code = os.WEXITSTATUS(info[1]) 
+                    print("Child's exit code:", code) 
+                    status= 400
+                    response_type = 'application/json'
+                    result= {"Status":"Failed", "Response": f_result,"Child's exit code":code}
+                    response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
+                    return response
+                
+                else:
+                    code = os.WEXITSTATUS(info[1])
+                    print("Child's exit code:", code) 
+                    status= 200
+                    response_type = 'application/json'
+                    result= {"Status":"Success", "Response": "Task Completed","Child's exit code":code}
+                    response = app.response_class(response=json.dumps(result), status=status, mimetype=response_type)            
+                    return response
 
+        else : 
+        
+            print("In child process:", os.getpid()) 
 
+            os.close(r)
+            w = os.fdopen(w, 'w')
+
+            res_ins = start_process("PROC_1")
+                        
+            w.write(str(res_ins))
+            w.close()
+        
+            print("Child exiting..") 
+        
+            os._exit(os.EX_OK)
+                    
 @app.route("/stop", methods=['GET', 'POST'])
 def stop():
 
